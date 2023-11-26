@@ -13,14 +13,18 @@ BAUD_RATE = 115200
 #Needs to be in segment - busbar - value order. The formatting can be anything
 UART_FORMATS = {
     "SegmentDisplay.updateVoltageData" : "voltage s[0-9]{1,12}? b[0-9]{1,12}? (\d+(?:[\.\,]\d{1,12})?)$",
-    "SegmentDisplay.updateTempData" : "temperature s[0-9]{1,12}? t[0-9]{1,12}? (\d+(?:[\.\,]\d{1,12})?)$"
+    "SegmentDisplay.updateTempData" : "temperature s[0-9]{1,12}? b[0-9]{1,12}? (\d+(?:[\.\,]\d{1,12})?)$"
 }
 
 INFO_SCREENS = {}
 
 #VOLTAGE INFO
 MAX_ACCEPTABLE_VOLTAGE = 4.2
-MIN_ACCEPTABLE_VOLTAGE = 2.5
+MIN_ACCEPTABLE_VOLTAGE = 3.2
 WARNING_VOLTAGE_PLUS_MINUS = 0.3
 
+#TEMPERATURE INFO
+MAX_ACCEPTABLE_TEMP = 113 #F
+MIN_ACCEPTABLE_TEMP = 32 #F
+WARNING_TEMP_PLUS_MINUS = 10 #F
 

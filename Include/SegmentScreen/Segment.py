@@ -10,15 +10,25 @@ class Segment:
         for i in range(GlobalVariables.VOLTAGE_SENSORS_PER_SEGMENT):
             self.voltageSensorReading[i] = None
 
+        self.tempSensorReading = { }
+        for i in range(GlobalVariables.TEMP_SENSORS_PER_SEGMENT):
+            self.tempSensorReading[i] = None
+
         self.tempSensorsTextField = []
         self.tempSensorsStatusCircles = []
         self.idNum = None
-        self.minId = None
-        self.maxId = None
-        self.averageId = None
-        self.minStatusId = None
-        self.maxStatusId = None
-        self.averageStatusId = None
+        self.minIdVoltage = None
+        self.maxIdVoltage = None
+        self.averageIdVoltage = None
+        self.minStatusIdVoltage = None
+        self.maxStatusIdVoltage = None
+        self.averageStatusIdVoltage = None
+        self.minIdTemp = None
+        self.maxIdTemp = None
+        self.averageIdTemp = None
+        self.minStatusIdTemp = None
+        self.maxStatusIdTemp = None
+        self.averageStatusIdTemp = None
 
     def updateVoltageSensorReading(self, busbar, voltage):
         self.voltageSensorReading.update({busbar : voltage})
@@ -38,8 +48,11 @@ class Segment:
     def getVoltageStatusCircles(self):
         return self.voltageSensorsStatusCircles
 
-    def addTempSensors(self, temps):
-        pass
+    def updateTempSensorReading(self, sensor, temp):
+        self.tempSensorReading.update({sensor : temp})
+
+    def getTempSensorReading(self):
+        return self.tempSensorReading
 
     def addTempStatusCircles(self, temp):
         self.tempSensorsStatusCircles.append(temp)
@@ -56,7 +69,7 @@ class Segment:
     def getId(self):
         return self.idNum
 
-    def getMin(self):
+    def getMinVoltage(self):
         min = float("inf")
         for i in range(0, GlobalVariables.VOLTAGE_SENSORS_PER_SEGMENT):
             if (self.getVoltageSensorReading()[i] != None and min >= self.getVoltageSensorReading()[i]):
@@ -64,7 +77,7 @@ class Segment:
 
         return min
 
-    def getMax(self):
+    def getMaxVoltage(self):
         max = float("-inf")
         for i in range(0, GlobalVariables.VOLTAGE_SENSORS_PER_SEGMENT):
             if (self.getVoltageSensorReading()[i] != None and max <= self.getVoltageSensorReading()[i]):
@@ -72,7 +85,7 @@ class Segment:
 
         return max
 
-    def getTotal(self):
+    def getTotalVoltage(self):
         total = 0
         for i in range(0, GlobalVariables.VOLTAGE_SENSORS_PER_SEGMENT):
             if (self.getVoltageSensorReading()[i] != None):
@@ -80,42 +93,105 @@ class Segment:
 
         return total
     
-    def getAverage(self):
-        return self.getTotal()/GlobalVariables.VOLTAGE_SENSORS_PER_SEGMENT
+    def getAverageVoltage(self):
+        return self.getTotalVoltage()/GlobalVariables.VOLTAGE_SENSORS_PER_SEGMENT
 
-    def setMinStatusId(self, id):
-        self.minStatusId = id
+    def setMinStatusIdVoltage(self, id):
+        self.minStatusIdVoltage = id
 
-    def getMinStatusId(self):
-        return self.minStatusId
+    def getMinStatusIdVoltage(self):
+        return self.minStatusIdVoltage
     
-    def setMinId(self, id):
-        self.minId = id
+    def setMinIdVoltage(self, id):
+        self.minIdVoltage = id
 
-    def getMinId(self):
-        return self.minId
+    def getMinIdVoltage(self):
+        return self.minIdVoltage
     
-    def setMaxStatusId(self, id):
-        self.maxStatusId = id
+    def setMaxStatusIdVoltage(self, id):
+        self.maxStatusIdVoltage = id
 
-    def getMaxStatusId(self):
-        return self.maxStatusId
+    def getMaxStatusIdVoltage(self):
+        return self.maxStatusIdVoltage
 
-    def setMaxId(self, id):
-        self.maxId = id
+    def setMaxIdVoltage(self, id):
+        self.maxIdVoltage = id
 
-    def getMaxId(self):
-        return self.maxId
+    def getMaxIdVoltage(self):
+        return self.maxIdVoltage
     
-    def setAvgStatusId(self, id):
-        self.averageStatusId = id
+    def setAvgStatusIdVoltage(self, id):
+        self.averageStatusIdVoltage = id
 
-    def getAvgStatusId(self):
-        return self.averageStatusId
+    def getAvgStatusIdVoltage(self):
+        return self.averageStatusIdVoltage
 
-    def setAvgId(self, id):
-        self.averageId = id
+    def setAvgIdVoltage(self, id):
+        self.averageIdVoltage = id
 
-    def getAvgId(self):
-        return self.averageId
+    def getAvgIdVoltage(self):
+        return self.averageIdVoltage
+    
+    def getMinTemp(self):
+        min = float("inf")
+        for i in range(0, GlobalVariables.TEMP_SENSORS_PER_SEGMENT):
+            if (self.getTempSensorReading()[i] != None and min >= self.getTempSensorReading()[i]):
+                min = self.getTempSensorReading()[i]
+
+        return min
+
+    def getMaxTemp(self):
+        max = float("-inf")
+        for i in range(0, GlobalVariables.TEMP_SENSORS_PER_SEGMENT):
+            if (self.getTempSensorReading()[i] != None and max <= self.getTempSensorReading()[i]):
+                max = self.getTempSensorReading()[i]
+
+        return max
+
+    def getTotalTemp(self):
+        total = 0
+        for i in range(0, GlobalVariables.TEMP_SENSORS_PER_SEGMENT):
+            if (self.getTempSensorReading()[i] != None):
+                total += self.getTempSensorReading()[i]
+
+        return total
+    
+    def getAverageTemp(self):
+        return self.getTotalTemp()/GlobalVariables.TEMP_SENSORS_PER_SEGMENT
+
+    def setMinStatusIdTemp(self, id):
+        self.minStatusIdTemp = id
+
+    def getMinStatusIdTemp(self):
+        return self.minStatusIdTemp
+    
+    def setMinIdTemp(self, id):
+        self.minIdTemp = id
+
+    def getMinIdTemp(self):
+        return self.minIdTemp
+    
+    def setMaxStatusIdTemp(self, id):
+        self.maxStatusIdTemp = id
+
+    def getMaxStatusIdTemp(self):
+        return self.maxStatusIdTemp
+
+    def setMaxIdTemp(self, id):
+        self.maxIdTemp = id
+
+    def getMaxIdTemp(self):
+        return self.maxIdTemp
+    
+    def setAvgStatusIdTemp(self, id):
+        self.averageStatusIdTemp = id
+
+    def getAvgStatusIdTemp(self):
+        return self.averageStatusIdTemp
+
+    def setAvgIdTemp(self, id):
+        self.averageIdTemp = id
+
+    def getAvgIdTemp(self):
+        return self.averageIdTemp
 

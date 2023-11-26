@@ -22,8 +22,10 @@ class DisplaySegments():
         self.add_voltage_text_fields()
         self.draw_temp_status_circles()
         self.add_temp_text_fields()
-        self.add_min_max_total_status_fields()
-        self.add_min_max_total_text_fields()
+        self.add_min_max_total_status_fields_voltage()
+        self.add_min_max_total_text_fields_voltage()
+        self.add_min_max_total_status_fields_temp()
+        self.add_min_max_total_text_fields_temp()
         
     #Dynamically draw the five rectangles for the five segments
     def draw_segments(self):
@@ -44,7 +46,7 @@ class DisplaySegments():
         for i in range(0, GlobalVariables.NUMBER_OF_SEGMENTS):
             for j in range(0, GlobalVariables.VOLTAGE_SENSORS_PER_SEGMENT):
                 segments[i].addVoltageStatusCircles(self.cv.create_oval(starting_point_x, 
-                                                        starting_point_y, starting_point_x + 10, starting_point_y + 10, fill="green"))
+                                                        starting_point_y, starting_point_x + 10, starting_point_y + 10, fill="white"))
                 
                 starting_point_y = starting_point_y + VOLTAGE_CIRCLE_SPACING
 
@@ -69,11 +71,11 @@ class DisplaySegments():
     # Create the temp status fields
     def draw_temp_status_circles(self):
         starting_point_y = CIRCLE_STARTING_Y
-        starting_point_x = RECTANGLE_SPACING + RECTANGLE_WIDTH - 120
+        starting_point_x = RECTANGLE_SPACING + RECTANGLE_WIDTH - 140
         for i in range(0, GlobalVariables.NUMBER_OF_SEGMENTS):
             for j in range(0, GlobalVariables.TEMP_SENSORS_PER_SEGMENT):
                 segments[i].addTempStatusCircles(self.cv.create_oval(starting_point_x, 
-                                                        starting_point_y, starting_point_x + 10, starting_point_y + 10, fill="green"))
+                                                        starting_point_y, starting_point_x + 10, starting_point_y + 10, fill="white"))
                 
                 starting_point_y = starting_point_y + TEMP_CIRCLE_SPACING
 
@@ -83,11 +85,11 @@ class DisplaySegments():
     # Create the temperature text fields
     def add_temp_text_fields(self):
         starting_point_y = TEXT_STARTING_Y
-        starting_point_x = RECTANGLE_SPACING + RECTANGLE_WIDTH - 55
+        starting_point_x = RECTANGLE_SPACING + RECTANGLE_WIDTH - 65
         for i in range(0, GlobalVariables.NUMBER_OF_SEGMENTS):
             for j in range(0, GlobalVariables.TEMP_SENSORS_PER_SEGMENT):
-                formattedText = "{:02}".format(j+1) + ": " + str(678) + "F" #TODO: Remove Eventually
-                segments[i].addVoltageTextFields(self.cv.create_text(starting_point_x, 
+                formattedText = "{:02}".format(j+1) + ": UNK"
+                segments[i].addTempTextFields(self.cv.create_text(starting_point_x, 
                                                         starting_point_y, text=formattedText, fill="black", font="Arial 10 bold"))
                 
                 starting_point_y = starting_point_y + TEMP_CIRCLE_SPACING
@@ -95,47 +97,47 @@ class DisplaySegments():
             starting_point_y = TEXT_STARTING_Y
             starting_point_x = starting_point_x + RECTANGLE_SPACING + RECTANGLE_WIDTH
 
-    def add_min_max_total_text_fields(self):
+    def add_min_max_total_text_fields_voltage(self):
         starting_point_y = RECTANGLE_STARTING_Y + 20
         starting_point_x = RECTANGLE_SPACING + 85
 
         for i in range(GlobalVariables.NUMBER_OF_SEGMENTS):
             
-            segments[i].setMinId(self.cv.create_text((starting_point_x - 5), 
+            segments[i].setMinIdVoltage(self.cv.create_text((starting_point_x - 5), 
                                                         starting_point_y, text="MIN: UNK", fill="black", font="Arial 10 bold"))
             
             starting_point_y = starting_point_y + 30
 
-            segments[i].setMaxId(self.cv.create_text(starting_point_x, 
+            segments[i].setMaxIdVoltage(self.cv.create_text(starting_point_x, 
                                                         starting_point_y, text="MAX: UNK", fill="black", font="Arial 10 bold"))
             
             starting_point_y = starting_point_y + 30
             
-            segments[i].setAvgId(self.cv.create_text(starting_point_x, 
+            segments[i].setAvgIdVoltage(self.cv.create_text(starting_point_x, 
                                                         starting_point_y, text="AVG: UNK", fill="black", font="Arial 10 bold"))
             
             starting_point_y = RECTANGLE_STARTING_Y + 20
             starting_point_x = starting_point_x + RECTANGLE_SPACING + RECTANGLE_WIDTH
 
 
-    def add_min_max_total_status_fields(self):
-        starting_point_y = RECTANGLE_STARTING_Y + 13
+    def add_min_max_total_status_fields_voltage(self):
+        starting_point_y = RECTANGLE_STARTING_Y + 12
         starting_point_x = RECTANGLE_SPACING + 10
         for i in range(GlobalVariables.NUMBER_OF_SEGMENTS):
-            segments[i].setMinStatusId(self.cv.create_oval(starting_point_x, 
-                                                starting_point_y, starting_point_x + 15, starting_point_y + 15, fill="green"))
+            segments[i].setMinStatusIdVoltage(self.cv.create_oval(starting_point_x, 
+                                                starting_point_y, starting_point_x + 15, starting_point_y + 15, fill="white"))
             
             starting_point_y = starting_point_y + 30
 
-            segments[i].setMaxStatusId(self.cv.create_oval(starting_point_x, 
-                                                starting_point_y, starting_point_x + 15, starting_point_y + 15, fill="red"))
+            segments[i].setMaxStatusIdVoltage(self.cv.create_oval(starting_point_x, 
+                                                starting_point_y, starting_point_x + 15, starting_point_y + 15, fill="white"))
             
             starting_point_y = starting_point_y + 30
             
-            segments[i].setAvgStatusId(self.cv.create_oval(starting_point_x, 
-                                                starting_point_y, starting_point_x + 15, starting_point_y + 15, fill="gold"))
+            segments[i].setAvgStatusIdVoltage(self.cv.create_oval(starting_point_x, 
+                                                starting_point_y, starting_point_x + 15, starting_point_y + 15, fill="white"))
             
-            starting_point_y = RECTANGLE_STARTING_Y + 13
+            starting_point_y = RECTANGLE_STARTING_Y + 12
             starting_point_x = starting_point_x + RECTANGLE_SPACING + RECTANGLE_WIDTH
     
     def updateVoltageData(self, data):
@@ -150,21 +152,94 @@ class DisplaySegments():
         self.changeStatusColor(GlobalVariables.MIN_ACCEPTABLE_VOLTAGE, GlobalVariables.MAX_ACCEPTABLE_VOLTAGE, 
                                GlobalVariables.WARNING_VOLTAGE_PLUS_MINUS, volt, segment.getVoltageStatusCircles()[busbar])
 
-        avg = segment.getAverage()
-        min = segment.getMin()
-        max = segment.getMax()
+        avg = segment.getAverageVoltage()
+        min = segment.getMinVoltage()
+        max = segment.getMaxVoltage()
 
-        self.cv.itemconfig(segment.getMinId(), text="MIN: {minVolt:.2f} V".format(minVolt = min))
+        self.cv.itemconfig(segment.getMinIdVoltage(), text="MIN: {minVolt:.2f} V".format(minVolt = min))
         self.changeStatusColor(GlobalVariables.MIN_ACCEPTABLE_VOLTAGE, GlobalVariables.MAX_ACCEPTABLE_VOLTAGE, 
-                               GlobalVariables.WARNING_VOLTAGE_PLUS_MINUS, min, segment.getMinStatusId())
+                               GlobalVariables.WARNING_VOLTAGE_PLUS_MINUS, min, segment.getMinStatusIdVoltage())
         
-        self.cv.itemconfig(segment.getMaxId(), text="MAX: {maxVolt:.2f} V".format(maxVolt = max))
+        self.cv.itemconfig(segment.getMaxIdVoltage(), text="MAX: {maxVolt:.2f} V".format(maxVolt = max))
         self.changeStatusColor(GlobalVariables.MIN_ACCEPTABLE_VOLTAGE, GlobalVariables.MAX_ACCEPTABLE_VOLTAGE, 
-                               GlobalVariables.WARNING_VOLTAGE_PLUS_MINUS, max, segment.getMaxStatusId())
+                               GlobalVariables.WARNING_VOLTAGE_PLUS_MINUS, max, segment.getMaxStatusIdVoltage())
         
-        self.cv.itemconfig(segment.getAvgId(), text="AVG: {avgVolt:.2f} V".format(avgVolt = avg))
+        self.cv.itemconfig(segment.getAvgIdVoltage(), text="AVG: {avgVolt:.2f} V".format(avgVolt = avg))
         self.changeStatusColor(GlobalVariables.MIN_ACCEPTABLE_VOLTAGE, GlobalVariables.MAX_ACCEPTABLE_VOLTAGE, 
-                        GlobalVariables.WARNING_VOLTAGE_PLUS_MINUS, avg, segment.getAvgStatusId())
+                        GlobalVariables.WARNING_VOLTAGE_PLUS_MINUS, avg, segment.getAvgStatusIdVoltage())
+        
+
+    def add_min_max_total_text_fields_temp(self):
+        starting_point_y = RECTANGLE_STARTING_Y + 100
+        starting_point_x = RECTANGLE_SPACING + RECTANGLE_WIDTH - 75
+
+        for i in range(GlobalVariables.NUMBER_OF_SEGMENTS):
+            
+            segments[i].setMinIdTemp(self.cv.create_text((starting_point_x - 5), 
+                                                        starting_point_y, text="MIN: UNK", fill="black", font="Arial 10 bold"))
+            
+            starting_point_y = starting_point_y + 30
+
+            segments[i].setMaxIdTemp(self.cv.create_text(starting_point_x, 
+                                                        starting_point_y, text="MAX: UNK", fill="black", font="Arial 10 bold"))
+            
+            starting_point_y = starting_point_y + 30
+            
+            segments[i].setAvgIdTemp(self.cv.create_text(starting_point_x, 
+                                                        starting_point_y, text="AVG: UNK", fill="black", font="Arial 10 bold"))
+            
+            starting_point_y = RECTANGLE_STARTING_Y + 100
+            starting_point_x = starting_point_x + RECTANGLE_SPACING + RECTANGLE_WIDTH
+
+
+    def add_min_max_total_status_fields_temp(self):
+        starting_point_y = RECTANGLE_STARTING_Y + 92
+        starting_point_x = RECTANGLE_SPACING + RECTANGLE_WIDTH - 160
+        for i in range(GlobalVariables.NUMBER_OF_SEGMENTS):
+            segments[i].setMinStatusIdTemp(self.cv.create_oval(starting_point_x, 
+                                                starting_point_y, starting_point_x + 15, starting_point_y + 15, fill="white"))
+            
+            starting_point_y = starting_point_y + 30
+
+            segments[i].setMaxStatusIdTemp(self.cv.create_oval(starting_point_x, 
+                                                starting_point_y, starting_point_x + 15, starting_point_y + 15, fill="white"))
+            
+            starting_point_y = starting_point_y + 30
+            
+            segments[i].setAvgStatusIdTemp(self.cv.create_oval(starting_point_x, 
+                                                starting_point_y, starting_point_x + 15, starting_point_y + 15, fill="white"))
+            
+            starting_point_y = RECTANGLE_STARTING_Y + 92
+            starting_point_x = starting_point_x + RECTANGLE_SPACING + RECTANGLE_WIDTH
+        
+
+    def updateTempData(self, data):
+        vals = re.findall(r'(\d+(?:\.\d+)?)', data)
+        segment = segments[int(vals[0]) - 1]
+        sensor = int(vals[1]) - 1
+        temp = float(vals[2])
+
+        self.cv.itemconfig(segment.getTempTextFields()[sensor], text="{num:02}: {temperature:.1f} F".format(num = sensor+1, temperature = temp))
+        segment.updateTempSensorReading(sensor, temp)
+
+        self.changeStatusColor(GlobalVariables.MIN_ACCEPTABLE_TEMP, GlobalVariables.MAX_ACCEPTABLE_TEMP, 
+                               GlobalVariables.WARNING_TEMP_PLUS_MINUS, temp, segment.getTempStatusCircles()[sensor])
+
+        avg = segment.getAverageTemp()
+        min = segment.getMinTemp()
+        max = segment.getMaxTemp()
+
+        self.cv.itemconfig(segment.getMinIdTemp(), text="MIN: {minTemp:.1f} F".format(minTemp = min))
+        self.changeStatusColor(GlobalVariables.MIN_ACCEPTABLE_TEMP, GlobalVariables.MAX_ACCEPTABLE_TEMP, 
+                               GlobalVariables.WARNING_TEMP_PLUS_MINUS, min, segment.getMinStatusIdTemp())
+        
+        self.cv.itemconfig(segment.getMaxIdTemp(), text="MAX: {maxTemp:.1f} F".format(maxTemp = max))
+        self.changeStatusColor(GlobalVariables.MIN_ACCEPTABLE_TEMP, GlobalVariables.MAX_ACCEPTABLE_TEMP, 
+                               GlobalVariables.WARNING_TEMP_PLUS_MINUS, max, segment.getMaxStatusIdTemp())
+        
+        self.cv.itemconfig(segment.getAvgIdTemp(), text="AVG: {avgTemp:.1f} F".format(avgTemp = avg))
+        self.changeStatusColor(GlobalVariables.MIN_ACCEPTABLE_TEMP, GlobalVariables.MAX_ACCEPTABLE_TEMP, 
+                        GlobalVariables.WARNING_TEMP_PLUS_MINUS, avg, segment.getAvgStatusIdTemp())
 
 
     def changeStatusColor(self, minVal, maxVal, yellowRange, currentVal, statusId):
